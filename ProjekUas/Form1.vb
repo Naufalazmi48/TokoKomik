@@ -49,11 +49,13 @@ Public Class Form1
     Private Sub menuStorage_Click(sender As Object, e As EventArgs) Handles menuStorage.Click
         'NON AKTIF ELSE PANEL STORAGE
         PanelStorage.isVisible(True)
+        transactionPanel.Visible = False
         statusStrip.Text = menuStorage.Text
     End Sub
 
     Private Sub menuTransaction_Click(sender As Object, e As EventArgs) Handles menuTransaction.Click
         'SET VISIBILITY PANEL TRANSACTION
+        transactionPanel.Visible = True
         storagePanel.Visible = False
         statusStrip.Text = menuTransaction.Text
     End Sub
@@ -64,4 +66,7 @@ Public Class Form1
         End If
     End Sub
 
+    Private Sub menuReport_Click(sender As Object, e As EventArgs) Handles menuReport.Click
+        LaporanTransaksi.Show()
+    End Sub
 End Class

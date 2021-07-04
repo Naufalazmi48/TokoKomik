@@ -29,8 +29,6 @@ Partial Public Class TokoKomikDataSet
     
     Private tabletransaction As transactionDataTable
     
-    Private relationstoragetransaction As Global.System.Data.DataRelation
-    
     Private _schemaSerializationMode As Global.System.Data.SchemaSerializationMode = Global.System.Data.SchemaSerializationMode.IncludeSchema
     
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -220,7 +218,6 @@ Partial Public Class TokoKomikDataSet
                 Me.tabletransaction.InitVars
             End If
         End If
-        Me.relationstoragetransaction = Me.Relations("storagetransaction")
     End Sub
     
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -235,8 +232,6 @@ Partial Public Class TokoKomikDataSet
         MyBase.Tables.Add(Me.tablestorage)
         Me.tabletransaction = New transactionDataTable()
         MyBase.Tables.Add(Me.tabletransaction)
-        Me.relationstoragetransaction = New Global.System.Data.DataRelation("storagetransaction", New Global.System.Data.DataColumn() {Me.tablestorage.IdColumn}, New Global.System.Data.DataColumn() {Me.tabletransaction.Id_KomikColumn}, false)
-        Me.Relations.Add(Me.relationstoragetransaction)
     End Sub
     
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -659,11 +654,13 @@ Partial Public Class TokoKomikDataSet
         
         Private columnNama_Pembeli As Global.System.Data.DataColumn
         
-        Private columnId_Komik As Global.System.Data.DataColumn
-        
         Private columnQty As Global.System.Data.DataColumn
         
         Private columnTotal_Pembayaran As Global.System.Data.DataColumn
+        
+        Private columnTanggal As Global.System.Data.DataColumn
+        
+        Private columnJudul As Global.System.Data.DataColumn
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
@@ -718,14 +715,6 @@ Partial Public Class TokoKomikDataSet
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
-        Public ReadOnly Property Id_KomikColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnId_Komik
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
         Public ReadOnly Property QtyColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnQty
@@ -737,6 +726,22 @@ Partial Public Class TokoKomikDataSet
         Public ReadOnly Property Total_PembayaranColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTotal_Pembayaran
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
+        Public ReadOnly Property TanggalColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnTanggal
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
+        Public ReadOnly Property JudulColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnJudul
             End Get
         End Property
         
@@ -777,12 +782,9 @@ Partial Public Class TokoKomikDataSet
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
-        Public Overloads Function AddtransactionRow(ByVal Nama_Pembeli As String, ByVal parentstorageRowBystoragetransaction As storageRow, ByVal Qty As Integer, ByVal Total_Pembayaran As Integer) As transactionRow
+        Public Overloads Function AddtransactionRow(ByVal Nama_Pembeli As String, ByVal Qty As Integer, ByVal Total_Pembayaran As Integer, ByVal Tanggal As String, ByVal Judul As String) As transactionRow
             Dim rowtransactionRow As transactionRow = CType(Me.NewRow,transactionRow)
-            Dim columnValuesArray() As Object = New Object() {Nothing, Nama_Pembeli, Nothing, Qty, Total_Pembayaran}
-            If (Not (parentstorageRowBystoragetransaction) Is Nothing) Then
-                columnValuesArray(2) = parentstorageRowBystoragetransaction(0)
-            End If
+            Dim columnValuesArray() As Object = New Object() {Nothing, Nama_Pembeli, Qty, Total_Pembayaran, Tanggal, Judul}
             rowtransactionRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowtransactionRow)
             Return rowtransactionRow
@@ -813,9 +815,10 @@ Partial Public Class TokoKomikDataSet
         Friend Sub InitVars()
             Me.columnId = MyBase.Columns("Id")
             Me.columnNama_Pembeli = MyBase.Columns("Nama_Pembeli")
-            Me.columnId_Komik = MyBase.Columns("Id_Komik")
             Me.columnQty = MyBase.Columns("Qty")
             Me.columnTotal_Pembayaran = MyBase.Columns("Total_Pembayaran")
+            Me.columnTanggal = MyBase.Columns("Tanggal")
+            Me.columnJudul = MyBase.Columns("Judul")
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -825,12 +828,14 @@ Partial Public Class TokoKomikDataSet
             MyBase.Columns.Add(Me.columnId)
             Me.columnNama_Pembeli = New Global.System.Data.DataColumn("Nama_Pembeli", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnNama_Pembeli)
-            Me.columnId_Komik = New Global.System.Data.DataColumn("Id_Komik", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnId_Komik)
             Me.columnQty = New Global.System.Data.DataColumn("Qty", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnQty)
             Me.columnTotal_Pembayaran = New Global.System.Data.DataColumn("Total_Pembayaran", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnTotal_Pembayaran)
+            Me.columnTanggal = New Global.System.Data.DataColumn("Tanggal", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnTanggal)
+            Me.columnJudul = New Global.System.Data.DataColumn("Judul", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnJudul)
             Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnId}, true))
             Me.columnId.AutoIncrement = true
             Me.columnId.AutoIncrementSeed = -1
@@ -838,6 +843,8 @@ Partial Public Class TokoKomikDataSet
             Me.columnId.AllowDBNull = false
             Me.columnId.Unique = true
             Me.columnNama_Pembeli.MaxLength = 255
+            Me.columnTanggal.MaxLength = 255
+            Me.columnJudul.MaxLength = 255
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -1127,16 +1134,6 @@ Partial Public Class TokoKomikDataSet
         Public Sub SetHargaNull()
             Me(Me.tablestorage.HargaColumn) = Global.System.Convert.DBNull
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
-        Public Function GettransactionRows() As transactionRow()
-            If (Me.Table.ChildRelations("storagetransaction") Is Nothing) Then
-                Return New transactionRow(-1) {}
-            Else
-                Return CType(MyBase.GetChildRows(Me.Table.ChildRelations("storagetransaction")),transactionRow())
-            End If
-        End Function
     End Class
     
     '''<summary>
@@ -1182,21 +1179,6 @@ Partial Public Class TokoKomikDataSet
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
-        Public Property Id_Komik() As Integer
-            Get
-                Try 
-                    Return CType(Me(Me.tabletransaction.Id_KomikColumn),Integer)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'Id_Komik' in table 'transaction' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tabletransaction.Id_KomikColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
         Public Property Qty() As Integer
             Get
                 Try 
@@ -1227,12 +1209,31 @@ Partial Public Class TokoKomikDataSet
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
-        Public Property storageRow() As storageRow
+        Public Property Tanggal() As String
             Get
-                Return CType(Me.GetParentRow(Me.Table.ParentRelations("storagetransaction")),storageRow)
+                Try 
+                    Return CType(Me(Me.tabletransaction.TanggalColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'Tanggal' in table 'transaction' is DBNull.", e)
+                End Try
             End Get
             Set
-                Me.SetParentRow(value, Me.Table.ParentRelations("storagetransaction"))
+                Me(Me.tabletransaction.TanggalColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
+        Public Property Judul() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tabletransaction.JudulColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'Judul' in table 'transaction' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tabletransaction.JudulColumn) = value
             End Set
         End Property
         
@@ -1246,18 +1247,6 @@ Partial Public Class TokoKomikDataSet
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
         Public Sub SetNama_PembeliNull()
             Me(Me.tabletransaction.Nama_PembeliColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
-        Public Function IsId_KomikNull() As Boolean
-            Return Me.IsNull(Me.tabletransaction.Id_KomikColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
-        Public Sub SetId_KomikNull()
-            Me(Me.tabletransaction.Id_KomikColumn) = Global.System.Convert.DBNull
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -1282,6 +1271,30 @@ Partial Public Class TokoKomikDataSet
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
         Public Sub SetTotal_PembayaranNull()
             Me(Me.tabletransaction.Total_PembayaranColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
+        Public Function IsTanggalNull() As Boolean
+            Return Me.IsNull(Me.tabletransaction.TanggalColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
+        Public Sub SetTanggalNull()
+            Me(Me.tabletransaction.TanggalColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
+        Public Function IsJudulNull() As Boolean
+            Return Me.IsNull(Me.tabletransaction.JudulColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")>  _
+        Public Sub SetJudulNull()
+            Me(Me.tabletransaction.JudulColumn) = Global.System.Convert.DBNull
         End Sub
     End Class
     
@@ -1929,16 +1942,18 @@ Namespace TokoKomikDataSetTableAdapters
             tableMapping.DataSetTable = "transaction"
             tableMapping.ColumnMappings.Add("Id", "Id")
             tableMapping.ColumnMappings.Add("Nama_Pembeli", "Nama_Pembeli")
-            tableMapping.ColumnMappings.Add("Id_Komik", "Id_Komik")
             tableMapping.ColumnMappings.Add("Qty", "Qty")
             tableMapping.ColumnMappings.Add("Total_Pembayaran", "Total_Pembayaran")
+            tableMapping.ColumnMappings.Add("Tanggal", "Tanggal")
+            tableMapping.ColumnMappings.Add("Judul", "Judul")
             Me._adapter.TableMappings.Add(tableMapping)
             Me._adapter.DeleteCommand = New Global.System.Data.OleDb.OleDbCommand()
             Me._adapter.DeleteCommand.Connection = Me.Connection
             Me._adapter.DeleteCommand.CommandText = "DELETE FROM `transaction` WHERE ((`Id` = ?) AND ((? = 1 AND `Nama_Pembeli` IS NUL"& _ 
                 "L) OR (`Nama_Pembeli` = ?)) AND ((? = 1 AND `Id_Komik` IS NULL) OR (`Id_Komik` ="& _ 
                 " ?)) AND ((? = 1 AND `Qty` IS NULL) OR (`Qty` = ?)) AND ((? = 1 AND `Total_Pemba"& _ 
-                "yaran` IS NULL) OR (`Total_Pembayaran` = ?)))"
+                "yaran` IS NULL) OR (`Total_Pembayaran` = ?)) AND ((? = 1 AND `Tanggal` IS NULL) "& _ 
+                "OR (`Tanggal` = ?)))"
             Me._adapter.DeleteCommand.CommandType = Global.System.Data.CommandType.Text
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_Id", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Id", Global.System.Data.DataRowVersion.Original, false, Nothing))
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("IsNull_Nama_Pembeli", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Nama_Pembeli", Global.System.Data.DataRowVersion.Original, true, Nothing))
@@ -1949,27 +1964,32 @@ Namespace TokoKomikDataSetTableAdapters
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_Qty", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Qty", Global.System.Data.DataRowVersion.Original, false, Nothing))
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("IsNull_Total_Pembayaran", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Total_Pembayaran", Global.System.Data.DataRowVersion.Original, true, Nothing))
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_Total_Pembayaran", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Total_Pembayaran", Global.System.Data.DataRowVersion.Original, false, Nothing))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("IsNull_Tanggal", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Tanggal", Global.System.Data.DataRowVersion.Original, true, Nothing))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_Tanggal", Global.System.Data.OleDb.OleDbType.VarWChar, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Tanggal", Global.System.Data.DataRowVersion.Original, false, Nothing))
             Me._adapter.InsertCommand = New Global.System.Data.OleDb.OleDbCommand()
             Me._adapter.InsertCommand.Connection = Me.Connection
-            Me._adapter.InsertCommand.CommandText = "INSERT INTO `transaction` (`Nama_Pembeli`, `Id_Komik`, `Qty`, `Total_Pembayaran`)"& _ 
-                " VALUES (?, ?, ?, ?)"
+            Me._adapter.InsertCommand.CommandText = "INSERT INTO `transaction` (`Nama_Pembeli`, `Id_Komik`, `Qty`, `Total_Pembayaran`,"& _ 
+                " `Tanggal`) VALUES (?, ?, ?, ?, ?)"
             Me._adapter.InsertCommand.CommandType = Global.System.Data.CommandType.Text
             Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Nama_Pembeli", Global.System.Data.OleDb.OleDbType.VarWChar, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Nama_Pembeli", Global.System.Data.DataRowVersion.Current, false, Nothing))
             Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Id_Komik", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Id_Komik", Global.System.Data.DataRowVersion.Current, false, Nothing))
             Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Qty", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Qty", Global.System.Data.DataRowVersion.Current, false, Nothing))
             Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Total_Pembayaran", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Total_Pembayaran", Global.System.Data.DataRowVersion.Current, false, Nothing))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Tanggal", Global.System.Data.OleDb.OleDbType.VarWChar, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Tanggal", Global.System.Data.DataRowVersion.Current, false, Nothing))
             Me._adapter.UpdateCommand = New Global.System.Data.OleDb.OleDbCommand()
             Me._adapter.UpdateCommand.Connection = Me.Connection
             Me._adapter.UpdateCommand.CommandText = "UPDATE `transaction` SET `Nama_Pembeli` = ?, `Id_Komik` = ?, `Qty` = ?, `Total_Pe"& _ 
-                "mbayaran` = ? WHERE ((`Id` = ?) AND ((? = 1 AND `Nama_Pembeli` IS NULL) OR (`Nam"& _ 
-                "a_Pembeli` = ?)) AND ((? = 1 AND `Id_Komik` IS NULL) OR (`Id_Komik` = ?)) AND (("& _ 
-                "? = 1 AND `Qty` IS NULL) OR (`Qty` = ?)) AND ((? = 1 AND `Total_Pembayaran` IS N"& _ 
-                "ULL) OR (`Total_Pembayaran` = ?)))"
+                "mbayaran` = ?, `Tanggal` = ? WHERE ((`Id` = ?) AND ((? = 1 AND `Nama_Pembeli` IS"& _ 
+                " NULL) OR (`Nama_Pembeli` = ?)) AND ((? = 1 AND `Id_Komik` IS NULL) OR (`Id_Komi"& _ 
+                "k` = ?)) AND ((? = 1 AND `Qty` IS NULL) OR (`Qty` = ?)) AND ((? = 1 AND `Total_P"& _ 
+                "embayaran` IS NULL) OR (`Total_Pembayaran` = ?)) AND ((? = 1 AND `Tanggal` IS NU"& _ 
+                "LL) OR (`Tanggal` = ?)))"
             Me._adapter.UpdateCommand.CommandType = Global.System.Data.CommandType.Text
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Nama_Pembeli", Global.System.Data.OleDb.OleDbType.VarWChar, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Nama_Pembeli", Global.System.Data.DataRowVersion.Current, false, Nothing))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Id_Komik", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Id_Komik", Global.System.Data.DataRowVersion.Current, false, Nothing))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Qty", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Qty", Global.System.Data.DataRowVersion.Current, false, Nothing))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Total_Pembayaran", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Total_Pembayaran", Global.System.Data.DataRowVersion.Current, false, Nothing))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Tanggal", Global.System.Data.OleDb.OleDbType.VarWChar, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Tanggal", Global.System.Data.DataRowVersion.Current, false, Nothing))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_Id", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Id", Global.System.Data.DataRowVersion.Original, false, Nothing))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("IsNull_Nama_Pembeli", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Nama_Pembeli", Global.System.Data.DataRowVersion.Original, true, Nothing))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_Nama_Pembeli", Global.System.Data.OleDb.OleDbType.VarWChar, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Nama_Pembeli", Global.System.Data.DataRowVersion.Original, false, Nothing))
@@ -1979,6 +1999,8 @@ Namespace TokoKomikDataSetTableAdapters
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_Qty", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Qty", Global.System.Data.DataRowVersion.Original, false, Nothing))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("IsNull_Total_Pembayaran", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Total_Pembayaran", Global.System.Data.DataRowVersion.Original, true, Nothing))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_Total_Pembayaran", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Total_Pembayaran", Global.System.Data.DataRowVersion.Original, false, Nothing))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("IsNull_Tanggal", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Tanggal", Global.System.Data.DataRowVersion.Original, true, Nothing))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_Tanggal", Global.System.Data.OleDb.OleDbType.VarWChar, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Tanggal", Global.System.Data.DataRowVersion.Original, false, Nothing))
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -1994,7 +2016,10 @@ Namespace TokoKomikDataSetTableAdapters
             Me._commandCollection = New Global.System.Data.OleDb.OleDbCommand(0) {}
             Me._commandCollection(0) = New Global.System.Data.OleDb.OleDbCommand()
             Me._commandCollection(0).Connection = Me.Connection
-            Me._commandCollection(0).CommandText = "SELECT Id, Nama_Pembeli, Id_Komik, Qty, Total_Pembayaran FROM [transaction]"
+            Me._commandCollection(0).CommandText = "SELECT        [transaction].Id, [transaction].Nama_Pembeli, storage.Judul, [trans"& _ 
+                "action].Qty, [transaction].Total_Pembayaran, [transaction].Tanggal"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM        "& _ 
+                "    ([transaction] LEFT OUTER JOIN"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"                         storage ON [transac"& _ 
+                "tion].Id_Komik = storage.Id)"
             Me._commandCollection(0).CommandType = Global.System.Data.CommandType.Text
         End Sub
         
@@ -2054,7 +2079,7 @@ Namespace TokoKomikDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, true)>  _
-        Public Overloads Overridable Function Delete(ByVal Original_Id As Integer, ByVal Original_Nama_Pembeli As String, ByVal Original_Id_Komik As Global.System.Nullable(Of Integer), ByVal Original_Qty As Global.System.Nullable(Of Integer), ByVal Original_Total_Pembayaran As Global.System.Nullable(Of Integer)) As Integer
+        Public Overloads Overridable Function Delete(ByVal Original_Id As Integer, ByVal Original_Nama_Pembeli As String, ByVal Original_Id_Komik As Global.System.Nullable(Of Integer), ByVal Original_Qty As Global.System.Nullable(Of Integer), ByVal Original_Total_Pembayaran As Global.System.Nullable(Of Integer), ByVal Original_Tanggal As String) As Integer
             Me.Adapter.DeleteCommand.Parameters(0).Value = CType(Original_Id,Integer)
             If (Original_Nama_Pembeli Is Nothing) Then
                 Me.Adapter.DeleteCommand.Parameters(1).Value = CType(1,Object)
@@ -2084,6 +2109,13 @@ Namespace TokoKomikDataSetTableAdapters
                 Me.Adapter.DeleteCommand.Parameters(7).Value = CType(1,Object)
                 Me.Adapter.DeleteCommand.Parameters(8).Value = Global.System.DBNull.Value
             End If
+            If (Original_Tanggal Is Nothing) Then
+                Me.Adapter.DeleteCommand.Parameters(9).Value = CType(1,Object)
+                Me.Adapter.DeleteCommand.Parameters(10).Value = Global.System.DBNull.Value
+            Else
+                Me.Adapter.DeleteCommand.Parameters(9).Value = CType(0,Object)
+                Me.Adapter.DeleteCommand.Parameters(10).Value = CType(Original_Tanggal,String)
+            End If
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.DeleteCommand.Connection.State
             If ((Me.Adapter.DeleteCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
@@ -2103,7 +2135,7 @@ Namespace TokoKomikDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, true)>  _
-        Public Overloads Overridable Function Insert(ByVal Nama_Pembeli As String, ByVal Id_Komik As Global.System.Nullable(Of Integer), ByVal Qty As Global.System.Nullable(Of Integer), ByVal Total_Pembayaran As Global.System.Nullable(Of Integer)) As Integer
+        Public Overloads Overridable Function Insert(ByVal Nama_Pembeli As String, ByVal Id_Komik As Global.System.Nullable(Of Integer), ByVal Qty As Global.System.Nullable(Of Integer), ByVal Total_Pembayaran As Global.System.Nullable(Of Integer), ByVal Tanggal As String) As Integer
             If (Nama_Pembeli Is Nothing) Then
                 Me.Adapter.InsertCommand.Parameters(0).Value = Global.System.DBNull.Value
             Else
@@ -2124,6 +2156,11 @@ Namespace TokoKomikDataSetTableAdapters
             Else
                 Me.Adapter.InsertCommand.Parameters(3).Value = Global.System.DBNull.Value
             End If
+            If (Tanggal Is Nothing) Then
+                Me.Adapter.InsertCommand.Parameters(4).Value = Global.System.DBNull.Value
+            Else
+                Me.Adapter.InsertCommand.Parameters(4).Value = CType(Tanggal,String)
+            End If
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.InsertCommand.Connection.State
             If ((Me.Adapter.InsertCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
@@ -2143,7 +2180,7 @@ Namespace TokoKomikDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, true)>  _
-        Public Overloads Overridable Function Update(ByVal Nama_Pembeli As String, ByVal Id_Komik As Global.System.Nullable(Of Integer), ByVal Qty As Global.System.Nullable(Of Integer), ByVal Total_Pembayaran As Global.System.Nullable(Of Integer), ByVal Original_Id As Integer, ByVal Original_Nama_Pembeli As String, ByVal Original_Id_Komik As Global.System.Nullable(Of Integer), ByVal Original_Qty As Global.System.Nullable(Of Integer), ByVal Original_Total_Pembayaran As Global.System.Nullable(Of Integer)) As Integer
+        Public Overloads Overridable Function Update(ByVal Nama_Pembeli As String, ByVal Id_Komik As Global.System.Nullable(Of Integer), ByVal Qty As Global.System.Nullable(Of Integer), ByVal Total_Pembayaran As Global.System.Nullable(Of Integer), ByVal Tanggal As String, ByVal Original_Id As Integer, ByVal Original_Nama_Pembeli As String, ByVal Original_Id_Komik As Global.System.Nullable(Of Integer), ByVal Original_Qty As Global.System.Nullable(Of Integer), ByVal Original_Total_Pembayaran As Global.System.Nullable(Of Integer), ByVal Original_Tanggal As String) As Integer
             If (Nama_Pembeli Is Nothing) Then
                 Me.Adapter.UpdateCommand.Parameters(0).Value = Global.System.DBNull.Value
             Else
@@ -2164,34 +2201,46 @@ Namespace TokoKomikDataSetTableAdapters
             Else
                 Me.Adapter.UpdateCommand.Parameters(3).Value = Global.System.DBNull.Value
             End If
-            Me.Adapter.UpdateCommand.Parameters(4).Value = CType(Original_Id,Integer)
-            If (Original_Nama_Pembeli Is Nothing) Then
-                Me.Adapter.UpdateCommand.Parameters(5).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(6).Value = Global.System.DBNull.Value
+            If (Tanggal Is Nothing) Then
+                Me.Adapter.UpdateCommand.Parameters(4).Value = Global.System.DBNull.Value
             Else
-                Me.Adapter.UpdateCommand.Parameters(5).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(6).Value = CType(Original_Nama_Pembeli,String)
+                Me.Adapter.UpdateCommand.Parameters(4).Value = CType(Tanggal,String)
+            End If
+            Me.Adapter.UpdateCommand.Parameters(5).Value = CType(Original_Id,Integer)
+            If (Original_Nama_Pembeli Is Nothing) Then
+                Me.Adapter.UpdateCommand.Parameters(6).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(7).Value = Global.System.DBNull.Value
+            Else
+                Me.Adapter.UpdateCommand.Parameters(6).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(7).Value = CType(Original_Nama_Pembeli,String)
             End If
             If (Original_Id_Komik.HasValue = true) Then
-                Me.Adapter.UpdateCommand.Parameters(7).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(8).Value = CType(Original_Id_Komik.Value,Integer)
+                Me.Adapter.UpdateCommand.Parameters(8).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(9).Value = CType(Original_Id_Komik.Value,Integer)
             Else
-                Me.Adapter.UpdateCommand.Parameters(7).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(8).Value = Global.System.DBNull.Value
+                Me.Adapter.UpdateCommand.Parameters(8).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(9).Value = Global.System.DBNull.Value
             End If
             If (Original_Qty.HasValue = true) Then
-                Me.Adapter.UpdateCommand.Parameters(9).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(10).Value = CType(Original_Qty.Value,Integer)
+                Me.Adapter.UpdateCommand.Parameters(10).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(11).Value = CType(Original_Qty.Value,Integer)
             Else
-                Me.Adapter.UpdateCommand.Parameters(9).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(10).Value = Global.System.DBNull.Value
+                Me.Adapter.UpdateCommand.Parameters(10).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(11).Value = Global.System.DBNull.Value
             End If
             If (Original_Total_Pembayaran.HasValue = true) Then
-                Me.Adapter.UpdateCommand.Parameters(11).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(12).Value = CType(Original_Total_Pembayaran.Value,Integer)
+                Me.Adapter.UpdateCommand.Parameters(12).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(13).Value = CType(Original_Total_Pembayaran.Value,Integer)
             Else
-                Me.Adapter.UpdateCommand.Parameters(11).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(12).Value = Global.System.DBNull.Value
+                Me.Adapter.UpdateCommand.Parameters(12).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(13).Value = Global.System.DBNull.Value
+            End If
+            If (Original_Tanggal Is Nothing) Then
+                Me.Adapter.UpdateCommand.Parameters(14).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(15).Value = Global.System.DBNull.Value
+            Else
+                Me.Adapter.UpdateCommand.Parameters(14).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(15).Value = CType(Original_Tanggal,String)
             End If
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.UpdateCommand.Connection.State
             If ((Me.Adapter.UpdateCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _

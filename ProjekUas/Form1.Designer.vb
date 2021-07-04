@@ -32,6 +32,7 @@ Partial Class Form1
         Me.menuTransaction = New System.Windows.Forms.Label()
         Me.menuReport = New System.Windows.Forms.Label()
         Me.menuExit = New System.Windows.Forms.Label()
+        Me.transactionPanel = New System.Windows.Forms.Panel()
         Me.GroupBox1.SuspendLayout()
         CType(Me.dgvStorage, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.storagePanel.SuspendLayout()
@@ -268,12 +269,22 @@ Partial Class Form1
         Me.menuExit.TabIndex = 5
         Me.menuExit.Text = "Keluar"
         '
+        'transactionPanel
+        '
+        Me.transactionPanel.BackColor = System.Drawing.SystemColors.Highlight
+        Me.transactionPanel.Location = New System.Drawing.Point(0, 36)
+        Me.transactionPanel.Name = "transactionPanel"
+        Me.transactionPanel.Size = New System.Drawing.Size(748, 534)
+        Me.transactionPanel.TabIndex = 29
+        Me.transactionPanel.Visible = False
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.Control
         Me.ClientSize = New System.Drawing.Size(747, 595)
+        Me.Controls.Add(Me.transactionPanel)
         Me.Controls.Add(Me.menuExit)
         Me.Controls.Add(Me.menuReport)
         Me.Controls.Add(Me.menuTransaction)
@@ -317,4 +328,5 @@ Partial Class Form1
     Friend WithEvents menuExit As Label
     Friend WithEvents tbPrice As TextBox
     Friend WithEvents Label6 As Label
+    Friend WithEvents transactionPanel As Panel
 End Class
