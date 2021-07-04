@@ -7,19 +7,6 @@
         Me.parent = parent
     End Sub
 
-    Private Sub initGridStoragePanel()
-        For index As Integer = 0 To parent.dgvStorage.Columns.Count - 1
-            parent.dgvStorage.Columns(index).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
-        Next
-
-        parent.dgvStorage.Columns(0).HeaderText = "Id"
-        parent.dgvStorage.Columns(1).HeaderText = "Judul"
-        parent.dgvStorage.Columns(2).HeaderText = "Genre"
-        parent.dgvStorage.Columns(3).HeaderText = "Pencipta"
-        parent.dgvStorage.Columns(4).HeaderText = "Stok"
-        parent.dgvStorage.Columns(5).HeaderText = "Harga"
-    End Sub
-
     Protected Sub showAllComics()
         parent.controller.readComics(parent.dgvStorage)
     End Sub
@@ -138,7 +125,7 @@
     Public Sub isVisible(value As Boolean)
         If value Then
             showAllComics()
-            initGridStoragePanel()
+            parent.initGridStoragePanel(parent.dgvStorage)
         End If
         parent.storagePanel.Visible = value
     End Sub

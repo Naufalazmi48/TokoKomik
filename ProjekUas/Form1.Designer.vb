@@ -33,9 +33,30 @@ Partial Class Form1
         Me.menuReport = New System.Windows.Forms.Label()
         Me.menuExit = New System.Windows.Forms.Label()
         Me.transactionPanel = New System.Windows.Forms.Panel()
+        Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.tbMoney = New System.Windows.Forms.TextBox()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.lblTotal = New System.Windows.Forms.Label()
+        Me.tbResponseTransaction = New System.Windows.Forms.TextBox()
+        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.dgvDetailComic = New System.Windows.Forms.DataGridView()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.tbQty = New System.Windows.Forms.TextBox()
+        Me.tbSearchById = New System.Windows.Forms.TextBox()
+        Me.tbName = New System.Windows.Forms.TextBox()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
+        Me.btnPay = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         CType(Me.dgvStorage, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.storagePanel.SuspendLayout()
+        Me.transactionPanel.SuspendLayout()
+        Me.GroupBox4.SuspendLayout()
+        Me.GroupBox3.SuspendLayout()
+        CType(Me.dgvDetailComic, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
         '
         'Label2
@@ -124,6 +145,7 @@ Partial Class Form1
         '
         'dgvStorage
         '
+        Me.dgvStorage.AllowUserToAddRows = False
         Me.dgvStorage.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvStorage.Location = New System.Drawing.Point(18, 58)
         Me.dgvStorage.Name = "dgvStorage"
@@ -272,11 +294,156 @@ Partial Class Form1
         'transactionPanel
         '
         Me.transactionPanel.BackColor = System.Drawing.SystemColors.Highlight
+        Me.transactionPanel.Controls.Add(Me.GroupBox4)
+        Me.transactionPanel.Controls.Add(Me.GroupBox3)
+        Me.transactionPanel.Controls.Add(Me.GroupBox2)
         Me.transactionPanel.Location = New System.Drawing.Point(0, 36)
         Me.transactionPanel.Name = "transactionPanel"
         Me.transactionPanel.Size = New System.Drawing.Size(748, 534)
         Me.transactionPanel.TabIndex = 29
         Me.transactionPanel.Visible = False
+        '
+        'GroupBox4
+        '
+        Me.GroupBox4.Controls.Add(Me.btnPay)
+        Me.GroupBox4.Controls.Add(Me.tbMoney)
+        Me.GroupBox4.Controls.Add(Me.Label11)
+        Me.GroupBox4.Controls.Add(Me.lblTotal)
+        Me.GroupBox4.Controls.Add(Me.tbResponseTransaction)
+        Me.GroupBox4.Location = New System.Drawing.Point(15, 246)
+        Me.GroupBox4.Name = "GroupBox4"
+        Me.GroupBox4.Size = New System.Drawing.Size(717, 261)
+        Me.GroupBox4.TabIndex = 1
+        Me.GroupBox4.TabStop = False
+        Me.GroupBox4.Text = "Detail Transaksi"
+        '
+        'tbMoney
+        '
+        Me.tbMoney.Enabled = False
+        Me.tbMoney.Location = New System.Drawing.Point(80, 86)
+        Me.tbMoney.Name = "tbMoney"
+        Me.tbMoney.Size = New System.Drawing.Size(166, 20)
+        Me.tbMoney.TabIndex = 6
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Location = New System.Drawing.Point(28, 89)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(33, 13)
+        Me.Label11.TabIndex = 2
+        Me.Label11.Text = "Uang"
+        '
+        'lblTotal
+        '
+        Me.lblTotal.AutoSize = True
+        Me.lblTotal.Location = New System.Drawing.Point(21, 39)
+        Me.lblTotal.Name = "lblTotal"
+        Me.lblTotal.Size = New System.Drawing.Size(63, 13)
+        Me.lblTotal.TabIndex = 1
+        Me.lblTotal.Text = "Total : Rp.0"
+        '
+        'tbResponseTransaction
+        '
+        Me.tbResponseTransaction.Enabled = False
+        Me.tbResponseTransaction.Location = New System.Drawing.Point(348, 26)
+        Me.tbResponseTransaction.Multiline = True
+        Me.tbResponseTransaction.Name = "tbResponseTransaction"
+        Me.tbResponseTransaction.Size = New System.Drawing.Size(331, 210)
+        Me.tbResponseTransaction.TabIndex = 0
+        '
+        'GroupBox3
+        '
+        Me.GroupBox3.Controls.Add(Me.dgvDetailComic)
+        Me.GroupBox3.Location = New System.Drawing.Point(320, 16)
+        Me.GroupBox3.Name = "GroupBox3"
+        Me.GroupBox3.Size = New System.Drawing.Size(415, 205)
+        Me.GroupBox3.TabIndex = 1
+        Me.GroupBox3.TabStop = False
+        Me.GroupBox3.Text = "Detail Komik"
+        '
+        'dgvDetailComic
+        '
+        Me.dgvDetailComic.AllowUserToAddRows = False
+        Me.dgvDetailComic.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvDetailComic.Location = New System.Drawing.Point(12, 31)
+        Me.dgvDetailComic.Name = "dgvDetailComic"
+        Me.dgvDetailComic.Size = New System.Drawing.Size(381, 150)
+        Me.dgvDetailComic.TabIndex = 0
+        '
+        'GroupBox2
+        '
+        Me.GroupBox2.Controls.Add(Me.tbQty)
+        Me.GroupBox2.Controls.Add(Me.tbSearchById)
+        Me.GroupBox2.Controls.Add(Me.tbName)
+        Me.GroupBox2.Controls.Add(Me.Label9)
+        Me.GroupBox2.Controls.Add(Me.Label8)
+        Me.GroupBox2.Controls.Add(Me.Label7)
+        Me.GroupBox2.Location = New System.Drawing.Point(18, 16)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(286, 205)
+        Me.GroupBox2.TabIndex = 0
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "Data Pembeli"
+        '
+        'tbQty
+        '
+        Me.tbQty.Enabled = False
+        Me.tbQty.Location = New System.Drawing.Point(88, 135)
+        Me.tbQty.Name = "tbQty"
+        Me.tbQty.Size = New System.Drawing.Size(166, 20)
+        Me.tbQty.TabIndex = 5
+        '
+        'tbSearchById
+        '
+        Me.tbSearchById.Location = New System.Drawing.Point(88, 87)
+        Me.tbSearchById.Name = "tbSearchById"
+        Me.tbSearchById.Size = New System.Drawing.Size(166, 20)
+        Me.tbSearchById.TabIndex = 4
+        '
+        'tbName
+        '
+        Me.tbName.Location = New System.Drawing.Point(86, 40)
+        Me.tbName.Name = "tbName"
+        Me.tbName.Size = New System.Drawing.Size(166, 20)
+        Me.tbName.TabIndex = 3
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Location = New System.Drawing.Point(27, 142)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(40, 13)
+        Me.Label9.TabIndex = 2
+        Me.Label9.Text = "Jumlah"
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Location = New System.Drawing.Point(24, 90)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(50, 13)
+        Me.Label8.TabIndex = 1
+        Me.Label8.Text = "ID Komik"
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Location = New System.Drawing.Point(24, 43)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(35, 13)
+        Me.Label7.TabIndex = 0
+        Me.Label7.Text = "Nama"
+        '
+        'btnPay
+        '
+        Me.btnPay.Enabled = False
+        Me.btnPay.Location = New System.Drawing.Point(33, 133)
+        Me.btnPay.Name = "btnPay"
+        Me.btnPay.Size = New System.Drawing.Size(256, 23)
+        Me.btnPay.TabIndex = 7
+        Me.btnPay.Text = "Bayar"
+        Me.btnPay.UseVisualStyleBackColor = True
         '
         'Form1
         '
@@ -298,6 +465,13 @@ Partial Class Form1
         CType(Me.dgvStorage, System.ComponentModel.ISupportInitialize).EndInit()
         Me.storagePanel.ResumeLayout(False)
         Me.storagePanel.PerformLayout()
+        Me.transactionPanel.ResumeLayout(False)
+        Me.GroupBox4.ResumeLayout(False)
+        Me.GroupBox4.PerformLayout()
+        Me.GroupBox3.ResumeLayout(False)
+        CType(Me.dgvDetailComic, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -329,4 +503,20 @@ Partial Class Form1
     Friend WithEvents tbPrice As TextBox
     Friend WithEvents Label6 As Label
     Friend WithEvents transactionPanel As Panel
+    Friend WithEvents GroupBox2 As GroupBox
+    Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
+    Friend WithEvents GroupBox4 As GroupBox
+    Friend WithEvents GroupBox3 As GroupBox
+    Friend WithEvents Label9 As Label
+    Friend WithEvents Label8 As Label
+    Friend WithEvents Label7 As Label
+    Friend WithEvents tbResponseTransaction As TextBox
+    Friend WithEvents Label11 As Label
+    Friend WithEvents lblTotal As Label
+    Friend WithEvents tbMoney As TextBox
+    Friend WithEvents dgvDetailComic As DataGridView
+    Friend WithEvents tbQty As TextBox
+    Friend WithEvents tbSearchById As TextBox
+    Friend WithEvents tbName As TextBox
+    Friend WithEvents btnPay As Button
 End Class

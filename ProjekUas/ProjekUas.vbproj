@@ -100,6 +100,7 @@
       <DependentUpon>Form1.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="src\data\Transaction.vb" />
     <Compile Include="src\FormInterface.vb" />
     <Compile Include="src\data\Komik.vb" />
     <Compile Include="LaporanTransaksi.Designer.vb">
@@ -124,6 +125,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="src\PanelStorage.vb" />
+    <Compile Include="src\PanelTransaction.vb" />
     <Compile Include="TokoKomikDataSet.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

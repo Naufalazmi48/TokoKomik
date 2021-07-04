@@ -81,4 +81,35 @@ Public Class Controller
             dgv.Refresh()
         End Try
     End Sub
+
+    Public Function createTransaction(transaction As Transaction) As Boolean Implements FormInterface.createTransaction
+        Try
+            Dim create As String = "INSERT INTO [transaction] (Nama_Pembeli, Id_Komik, Qty, Total_Pembayaran, Tanggal) VALUES('" &
+            transaction.NameBuyyer & "'," &
+            transaction.IdComic & "," &
+            transaction.Qty & "," &
+            transaction.Total & ",'" &
+            transaction.DateTransaction & "')"
+
+            cmd = New OleDbCommand(create, Conn)
+            cmd.ExecuteNonQuery()
+            Return True
+        Catch ex As Exception
+            Debug.WriteLine(ex.Message)
+            Return False
+        End Try
+    End Function
+
+    Public Sub minusStockComic(idComic As Integer, stockWasBuyed As Integer) Implements FormInterface.minusStockComic
+        Try
+            Dim update As String = "UPDATE storage SET " &
+            "Stok = " & stockWasBuyed &
+            " WHERE Id = " & idComic
+
+            cmd = New OleDbCommand(update, Conn)
+            cmd.ExecuteNonQuery()
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Sub
 End Class

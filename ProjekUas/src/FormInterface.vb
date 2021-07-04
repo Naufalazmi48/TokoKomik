@@ -5,4 +5,8 @@
 
     Sub searchComic(dgv As DataGridView, clue As Object)
     Sub readComics(dgv As DataGridView)
+
+    Sub minusStockComic(idComic As Integer, stockWasBuyed As Integer)
+
+    Function createTransaction(transaction As Transaction) As Boolean
 End Interface
